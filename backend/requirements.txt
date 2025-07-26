@@ -1,0 +1,10 @@
+Django>=4.2
+djangorestframework>=3.14
+django-cors-headers>=4.3  # ✅ corrected name
+djongo>=1.3.6           # Use Djongo for MongoDB
+pymongo>=4.6            # Required by Djongo
+python-decouple         # For .env variable handling
+gunicorn                # For production server
+openai                  # If you're using ChatGPT API
+langchain               # For prompt management or chains
+faiss-cpu               # Vector similarity search
