@@ -7,6 +7,7 @@ export const ChatProvider = ({ children }) => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [sessionId, setSessionId] = useState(null);
+  const [userInput, setUserInput] = useState('');
 
   const sendMessage = async (text) => {
     const userMsg = { sender: 'user', text };
@@ -14,7 +15,7 @@ export const ChatProvider = ({ children }) => {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/chat/', {
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}${process.env.REACT_APP_CHAT_ENDPOINT}`, {
         message: text,
         conversation_id: sessionId,
       });
@@ -32,7 +33,19 @@ export const ChatProvider = ({ children }) => {
   };
 
   return (
-    <ChatContext.Provider value={{ messages, sendMessage, loading, sessionId }}>
+    <ChatContext.Provider
+      value={{
+        messages,
+        setMessages,
+        sessionId,
+        setSessionId,
+        userInput,
+        setUserInput,
+        loading,
+        setLoading,
+        sendMessage,
+      }}
+    >
       {children}
     </ChatContext.Provider>
   );
