@@ -2,7 +2,8 @@ import pandas as pd
 from pymongo import MongoClient
 import os
 
-client = MongoClient("mongodb+srv://sheetaljain3618:sheetal1029@cluster0.o8x9fal.mongodb.net/ecommerce_bot?retryWrites=true&w=majority&appName=Cluster0")
+MONGO_URI = os.environ.get("MONGO_URI")
+client = MongoClient(MONGO_URI)
 db = client['ecommerce_bot']  
 
 dataset_dir = os.path.join(os.path.dirname(__file__), '../dataset/archive')
@@ -26,7 +27,7 @@ def load_csv_to_mongodb(file_name, collection_name):
     df = pd.read_csv(file_path)
 
     df = df.head(1000)
-    
+
     records = df.to_dict(orient='records')
 
     db[collection_name].delete_many({})

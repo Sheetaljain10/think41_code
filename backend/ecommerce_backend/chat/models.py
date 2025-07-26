@@ -10,6 +10,6 @@ class Conversation(models.Model):
 
 class Message(models.Model):
     conversation = models.ForeignKey(Conversation, on_delete=models.CASCADE)
-    sender = models.CharField(max_length=10)  # 'user' or 'ai'
+    sender = models.CharField(max_length=10)
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)

@@ -1,5 +1,6 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from .llm import call_llm
 import json
 from .db import db  # Your pymongo connection
 
@@ -19,7 +20,7 @@ def chat_view(request):
                 }
                 conversation_id = db.conversations.insert_one(conversation).inserted_id
 
-            response_text = "Dummy AI response for now"  # Placeholder for LLM logic
+            response_text = call_llm(user_message)
 
             # Append both user and AI message
             db.conversations.update_one(
